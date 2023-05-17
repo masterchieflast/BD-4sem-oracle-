@@ -1,0 +1,19 @@
+Дворовенко 4 вариант
+
+--1--
+CREATE or REPLACE PROCEDURE find_top_3_products_p
+IS
+BEGIN
+  FOR prod IN (select top(3) PRODUCT, COUNT(*) as order_count
+               from ORDERS
+               GROUP BY PRODUCT
+               ORDER by order_count DESC)
+  LOOP
+    DBMS_OUTPUT.PUT_LINE('Product: ' || prod.PRODUCT || ', Order Count: ' || prod.order_count);
+  END LOOP;
+END;
+
+
+BEGIN
+  find_top_3_products_p();
+END;
